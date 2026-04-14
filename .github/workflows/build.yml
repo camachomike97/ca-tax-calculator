@@ -4,7 +4,6 @@ on:
   push:
     branches: [ main ]
 
-# ←←← THIS IS THE FIX FOR THE NODE.JS WARNING
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
@@ -15,8 +14,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Set up build environment
+        run: |
+          chmod -R 755 .
+
       - name: Build with Buildozer
-        uses: ArtemSBulgakov/buildozer-action@v1
+        uses: ArtemSBulgakov/buildozer-action@v2
         id: buildozer
         with:
           workdir: .
